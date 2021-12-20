@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+      <title>Around The U.S.</title>
+      <link rel="stylesheet" href="./pages/index.css" />
+   </head>
+   <body class="root">
+      <div class="page">
+         <!-- Header -->
+         <header class="header">
+            <a href="#" target="_blank"><img src="./images/logo.svg" class="logo" alt="Around the USA logo" /></a>
+         </header>
+         <main class="main">
+            <!-- profile -->
+            <section class="profile">
+               <img class="profile__avatar" src="./images/avatar.jpg" alt="profile avatar" />
+               <div class="profile__info">
+                  <div>
+                     <h1 class="profile__name">Jacques Cousteau</h1>
+                     <!-- edit button -->
+                     <button aria-label="edit-button" type="button" class="profile__edit-button" name="edit"></button>
+                  </div>
+                  <h2 class="profile__title">Explorer</h2>
+               </div>
+               <!-- end profile__info -->
+               <!-- add button -->
+               <button type="button" aria-label="add-button" class="profile__add-button"></button>
+            </section>
+            <!-- end-profile -->
+            
+            <!-- 1st modal (popup) for editing profile -->
+            <div class="modal modal_type_edit-profile">
+               <div class="modal__container">
+                  <button type="button" aria-label="close-button" class="modal__close-button"></button>
+                  <h3 class="modal__title">Edit Profile</h3>
+                  <!-- form inside modal window -->
+                  <form action="#" class="form" name="form-profile" novalidate>
+                     <input id="input_type_name" type="text" class="form__input form__input_type_name" placeholder="name" name="name" 
+                        minlength="2" maxlength="40" required/>
+                     <span id="input_type_name-error" class="form__error"></span>
+                     <input id="input_type_job" type="text" class="form__input form__input_type_job" placeholder="profession" name="profession" 
+                        minlength="2" maxlength="200" required/>
+                     <span id="input_type_job-error" class="form__error"></span>
+                     <button type="submit" class="form__button form__button_disabled">Save</button>
+                  </form>
+               </div>
+               <!-- end modal__container-->
+            </div>
+            <!-- end modal edit profile -->
+            
+            <!-- 2nd modal (popup) for adding card -->
+            <div class="modal modal_type_add-place">
+               <div class="modal__container">
+                  <button type="button" aria-label="close-button" class="modal__close-button"></button>
+                  <h3 class="modal__title">New place</h3>
+                  <!-- form inside modal window -->
+                  <form action="#" class="form form-add-place" name="form-place" novalidate>
+                     <input id="input_type_place" type="text" class="form__input form__input_type_place" 
+                        placeholder="Title" name="place" minlength="1" maxlength="30" required/>
+                     <span id="input_type_place-error" class="form__error"></span>
+                     <input id="input_type_url" type="url" class="form__input form__input_type_link" 
+                        placeholder="Image link" name="link" required/>
+                     <span id="input_type_url-error" class="form__error"></span>
+                     <button type="submit" class="form__button form__button_disabled">Create</button>
+                  </form>
+               </div>
+               <!-- end modal__container-->
+            </div>
+            <!-- end modal add card -->
+            
+            <!-- 3rd modal (popup) for place preview -->
+            <div class="modal modal_type_preview-image">
+               <div class="modal__image-wrapper">
+                  <button type="button" aria-label="close-button" class="modal__close-button modal__close-button_type-preview"></button>
+                  <figure>
+                     <img class="modal__image-container" src="#" alt="preview image">
+                     <figcaption class="modal__image-caption"></figcaption>
+                  </figure>
+               </div>
+            </div>
+            <!-- place card elements -->
+            <section class="elements">
+               <ul class="elements__list"> </ul>
+            </section>
+         </main>
+         <!-- Footer -->
+         <footer class="footer">
+            <p class="footer__copyright">© 2021. Around the U.S.</p>
+         </footer>
+      </div>
+      <!-- Cards Element Template -->
+      <template class="elements-template">
+         <li class="elements__element">
+            <button class="elements__trash" type="button"><img src="./images/trash.svg" alt="Delete button"/></button>
+            <div class="elements__image" src="" alt="image preview"></div>
+            <div class="elements__info">
+               <h2 class="elements__text"></h2>
+               <button class="elements__heart" type="button"><img src="./images/heart.svg" alt="like heart-button" /></button>
+            </div>
+         </li>
+      </template>
+      
+      <script type="module" src="./js/index.js"></script>
+      
+   </body>
+</html>
