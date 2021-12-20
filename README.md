@@ -14,7 +14,7 @@ The project can be viewed locally (on the desktop) using a local server.
 
 [Link to Github folder](https://github.com/SaraW011/Yandex-Practicum-Around-the-US-Project-7)
 
-[Link to live page](https://saraw011.github.io/Yandex-Practicum-Around-the-US-Project-7/)
+[Link to live page](https://saraw011.github.io/Around-the-US---Sprint-7/)
 
 Tools Used:
 * Figma
