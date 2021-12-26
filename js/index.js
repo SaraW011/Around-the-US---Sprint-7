@@ -3,11 +3,11 @@ import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import { openModal, closeModal } from "./utils.js";
 
-//wrapper modals
+// wrapper modals
 const editProfilePopup = document.querySelector(".modal_type_edit-profile");
 const addNewPlacePopup = document.querySelector(".modal_type_add-place");
 
-//wrapper for popup forms
+// wrapper for popup forms
 const profileForm = editProfilePopup.querySelector(".form");
 const placeForm = addNewPlacePopup.querySelector(".form-add-place");
 
@@ -31,34 +31,32 @@ const addNewPlacePopupButton = document.querySelector(".profile__add-button");
 const placesList = document.querySelector(".elements__list"); //ul of place cards
 const placeTemplate = document.querySelector(".elements-template").content;
 
-//**-->> RENDER PLACE CARDS <<--**//
+/**-->> RENDER PLACE CARDS <<--*/
 
-//  place initialCards:
+// place initialCards:
 initialCards.reverse().forEach((initialCardData) => {
-  const card = new Card(initialCardData, placeTemplate);
-  placesList.prepend(card.render());
+  renderCard(initialCardData);
 });
 
-// create new card instance:
-function insertedCard(initialCardData) {
-  const newCard = new Card(initialCardData, placeTemplate);
-  placesList.prepend(newCard.render());
+// new card:
+function renderCard(data) {
+  const card = new Card(data, placeTemplate);
+  placesList.prepend(card.render());
 }
 
-//submit new card form:
+// submit new card form:
 function submitNewPlaceForm(e) {
   e.preventDefault();
-  const insertPlace = insertedCard({
+
+  const insertPlace = {
     name: inputPlace.value,
     link: inputLink.value,
-  });
-
-  placesList.prepend(insertPlace);
-
+  };
+  renderCard(insertPlace);
   closeModal(addNewPlacePopup);
 }
 
-//**-->> FORM VALIDATION SETTINGS <<--**
+//**-->> FORM VALIDATION SETTINGS <<--*/
 
 // Assign form elements to variables:
 const formSelector = ".form";
@@ -70,7 +68,7 @@ const fieldset = {
   errorClass: "form__error_visible",
 };
 
-//**-->> ENABLE FORM VALIDATION <<--**
+//**-->> ENABLE FORM VALIDATION <<--*/
 
 const getFormsList = Array.from(document.querySelectorAll(formSelector));
 
@@ -80,19 +78,19 @@ getFormsList.forEach((formElement) => {
   form.enableValidation();
 });
 
-//edit profile form
+// edit profile form
 function openProfileModal(editProfilePopup) {
   openModal(editProfilePopup);
 
   //---->>>>>>  holds initial values inside form when open:
   inputPlace.value = "";
-  inputLink.value = "";
+  inputPlace.value = "";
 
   inputName.value = "";
   inputJob.value = "";
 }
 
-//insert new name into profile:
+// insert new name into profile:
 function submitProfileForm(e) {
   e.preventDefault();
 
@@ -106,9 +104,9 @@ function submitProfileForm(e) {
   closeModal(editProfilePopup);
 }
 
-//*****---->>> EVENT LISTENERS <<----*****//
+// **---->>> EVENT LISTENERS <<----*/
 
-//close ALL modals with x button:
+// close ALL modals with x button:
 const closeButtons = document.querySelectorAll(".modal__close-button");
 closeButtons.forEach((button) =>
   button.addEventListener("click", (event) => {

@@ -14,9 +14,10 @@ class FormValidator {
 
   // #1: Find the error element
 
-  _showInputError(inputElement, validationMessage) { 
+  _showInputError(inputElement, validationMessage) {
     const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`);
+      `#${inputElement.id}-error`
+    );
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = validationMessage;
     errorElement.classList.add(this._errorClass);
@@ -32,7 +33,7 @@ class FormValidator {
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
   }
-  
+
   //#3: check if field is valid
 
   _checkInputValidity(inputElement) {
@@ -43,31 +44,40 @@ class FormValidator {
     }
   }
 
+  _getInvalidInput(inputList) {
+    inputList.some((inputElement) => !inputElement.validity.valid);
+  }
+
   // toggle button state after checking validity
 
   _toggleButtonState(inputList, buttonElement) {
-    const hasInvalidInput = inputList.some(
-      (inputElement) => !inputElement.validity.valid
-    );
-
-    if (hasInvalidInput) {
+    if (this._getInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass);
+      buttonElement.disabled = true;
+      //assign the disabled property if the input fields have invalid values
+      //and remove it if the values are valid.
+      //otherwise, users will be able to submit a form with invalid fields by pressing Enter key
     } else {
       buttonElement.classList.remove(this._inactiveButtonClass);
+      buttonElement.disabled = false;
     }
   }
 
-    _setEventListeners() {
-      const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-      const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-     
-      inputList.forEach((inputElement) => {
-        inputElement.addEventListener("input", () => {
-          this._checkInputValidity(inputElement);
-          this._toggleButtonState(inputList, buttonElement);
-        });
+  _setEventListeners() {
+    const inputList = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
+    );
+    const buttonElement = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
+
+    inputList.forEach((inputElement) => {
+      inputElement.addEventListener("input", () => {
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState(inputList, buttonElement);
       });
-    };
+    });
+  }
 
   //Enable validation for all forms:
 
@@ -75,10 +85,9 @@ class FormValidator {
     this._formElement.addEventListener("submit", function (e) {
       e.preventDefault();
     });
-    
+
     this._setEventListeners();
   }
-
 }
 
 export default FormValidator;

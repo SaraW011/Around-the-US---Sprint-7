@@ -4,26 +4,43 @@ export default class Card {
   constructor(cardData, templateSelector) {
     this._name = cardData.name;
     this._link = cardData.link;
-    this._template = templateSelector
-      .querySelector(".elements__element")
-      .cloneNode(true);
+    this._template = templateSelector;
   }
 
-  _handleLikeImage(event) {
-    const targetHeartElement = event.target;
-    targetHeartElement.classList.toggle("elements__heart_active");
+  _getTemplate() {
+    const cardElement = this._template
+      .querySelector(".elements__element")
+      .cloneNode(true);
+    return cardElement;
+  }
+
+  _handleLikeImage() {
+    //work with class instance that is specific for the card,
+    //NOT events as primarily done below:
+    //const targetHeartElement = event.target;
+    //targetHeartElement.classList.toggle("elements__heart_active");
+
+    //better to do the following:
+    this._cardElement
+      .querySelector(".elements__heart")
+      .classList.toggle("elements__heart_active");
   }
 
   _handleDeleteCard() {
     this._cardElement.remove();
+    this._cardElement = null; //-->> good practice to remove the reference to the DOM element after using remove()
   }
 
   _handlePreviewImage() {
     this._image = document.querySelector(".modal_type_preview-image");
 
     this._image.querySelector(".modal__image-caption").textContent = this._name;
-    this._image.querySelector(".modal__image-container").src = this._link;
-    this._image.querySelector(".modal__image-container").alt = this._name;
+
+    //select the DOM element once and reuse it:
+    const imagePreview = document.querySelector(".modal__image-container");
+    imagePreview.src = this._link;
+    imagePreview.alt = this._name;
+
     openModal(this._image);
   }
 
@@ -48,18 +65,18 @@ export default class Card {
   }
 
   render() {
-    this._cardElement = this._template;
+    this._cardElement = this._getTemplate();
 
-    const placeName = this._template.querySelector(".elements__text");
+    this._cardElement.querySelector(
+      ".elements__text"
+    ).textContent = this._name;
 
-    const PlaceImage = this._template.querySelector(".elements__image");
-
-    placeName.textContent = this._name;
-
-    PlaceImage.style.backgroundImage = `url(${this._link})`;
+    this._cardElement.querySelector(
+      ".elements__image"
+    ).style.backgroundImage = `url(${this._link})`;
 
     this._addEventListeners();
 
-    return this._template;
+    return this._cardElement;
   }
 }
