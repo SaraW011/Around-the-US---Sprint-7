@@ -47,8 +47,8 @@ export default class Card {
   _addEventListeners() {
     this._cardElement
       .querySelector(".elements__heart")
-      .addEventListener("click", (event) => {
-        this._handleLikeImage(event);
+      .addEventListener("click", () => {
+        this._handleLikeImage();
       });
 
     this._cardElement

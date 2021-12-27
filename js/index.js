@@ -83,11 +83,18 @@ function openProfileModal(editProfilePopup) {
   openModal(editProfilePopup);
 
   //---->>>>>>  holds initial values inside form when open:
-  inputPlace.value = "";
-  inputPlace.value = "";
+  const userName = userNameElement.textContent
+  const userJob = userJobElement.textContent
 
-  inputName.value = "";
-  inputJob.value = "";
+  inputName.value = userName
+  inputJob.value = userJob
+
+  //---->>>>>>  holds empty values inside form when open:
+  inputPlace.value = "";
+  inputLink.value = "";
+
+  // inputName.value = "";
+  // inputJob.value = "";
 }
 
 // insert new name into profile:
@@ -100,6 +107,7 @@ function submitProfileForm(e) {
   //--->>> allows filling new content into form:
   userNameElement.textContent = nameValue;
   userJobElement.textContent = jobValue;
+  
 
   closeModal(editProfilePopup);
 }

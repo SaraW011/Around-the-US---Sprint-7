@@ -45,7 +45,9 @@ class FormValidator {
   }
 
   _getInvalidInput(inputList) {
-    inputList.some((inputElement) => !inputElement.validity.valid);
+    //must use return statement to execute value to be returned to function caller.
+    //otherwise validation works incorrectly and even if the input is invalid, submit button still active
+    return inputList.some((inputElement) => !inputElement.validity.valid);
   }
 
   // toggle button state after checking validity
@@ -63,18 +65,38 @@ class FormValidator {
     }
   }
 
+  // _setEventListeners() {
+  //   const inputList = Array.from(
+  //     this._formElement.querySelectorAll(this._inputSelector)
+  //   );
+  //   const buttonElement = this._formElement.querySelector(
+  //     this._submitButtonSelector
+  //   );
+
+  //   inputList.forEach((inputElement) => {
+  //     inputElement.addEventListener("input", () => {
+  //       this._checkInputValidity(inputElement);
+  //       this._toggleButtonState(inputList, buttonElement);
+  //     });
+  //   });
+  // }
+
+  //rather than the above:
+  //It would be better to use "this" so that elements could be used in other methods 
+  //of the class and you wouldn't need to declare a separate constant
+
   _setEventListeners() {
-    const inputList = Array.from(
+    this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
     );
-    const buttonElement = this._formElement.querySelector(
+    this._buttonElement = this._formElement.querySelector(
       this._submitButtonSelector
     );
 
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(this._inputList, this._buttonElement);
       });
     });
   }
